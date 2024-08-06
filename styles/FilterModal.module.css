@@ -1,0 +1,83 @@
+/* styles/FilterModal.module.css */
+.modalOverlay {
+    position: fixed;
+    top: 1;
+    left: 0;
+    right: 2;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    z-index: 1000;
+  }
+  
+  .modalContent {
+    background: #fff;
+    width: 280px;
+    padding: 40px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  
+  .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .closeButton {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .modalBody {
+    margin-bottom: 20px;
+  }
+  
+  .filterCategory,
+  .filterPrice {
+    margin-bottom: 15px;
+  }
+  
+  .filterCategory ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .filterCategory li {
+    margin-bottom: 10px;
+  }
+  
+  .rangeInput {
+    width: 100%;
+  }
+  
+  .modalFooter {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .applyButton {
+    background-color: #00aaff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
