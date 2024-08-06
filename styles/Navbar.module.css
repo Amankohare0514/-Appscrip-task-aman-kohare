@@ -2,36 +2,41 @@
 .navbar {
     padding: 10px 0;
     text-align: center;
-  }
-  
-  .navList {
+}
+
+.navList {
     list-style-type: none;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     margin: 0;
     padding: 0;
-  }
-  
-  .navItem {
-    margin: 0 15px;
-  }
-  
-  .navLink {
+}
+
+.navItem {
+    margin: 0 32px;
+}
+
+@media (max-width: 768px) {
+    .navItem {
+        margin: 0 10px;
+    }
+}
+
+.navLink {
     color: #000;
     text-decoration: none;
     font-size: 16px;
     font-weight: 700;
     transition: color 0.3s ease-in-out;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  .navLink:hover {
-    color: #00aaff;
-  }
+}
 
-  .hr{
+.navLink:hover {
+    color: #00aaff;
+}
+
+.hr {
     margin-top: 30px;
     color: #00aaff;
-  }
-  
+}

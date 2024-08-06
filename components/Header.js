@@ -15,6 +15,7 @@ const Header = () => {
       </div>
       <div className={styles.icons}>
         <i className={`fa fa-search  ${styles.icon}`}></i>
+        <i className={`fa-solid fa-bag-shopping  ${styles.icon}`}></i>
         <i className={`fa-regular fa-heart ${styles.icon}`}></i>
         <i className={`fa-regular fa-user ${styles.icon}`}></i>
         <select className={styles.languageSelect}>

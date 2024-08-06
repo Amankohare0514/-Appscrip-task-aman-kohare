@@ -6,57 +6,64 @@ import styles from "../styles/ProductCard.module.css";
 import FilterModal from "./FilterModal";
 
 const ProductCard = () => {
-  const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [products, setProducts] = useState([]); // Original fetched products
+  const [filteredProducts, setFilteredProducts] = useState([]); // Products after applying filters
+  const [sortedProducts, setSortedProducts] = useState([]); // Products after applying sort
   const [error, setError] = useState(null);
   const [isFilterOpen, setFilterOpen] = useState(false);
-  const [sortOption, setSortOption] = useState("recommended"); 
+  const [sortOption, setSortOption] = useState("recommended"); // Default sorting option
 
+  // Fetching the products from the API
   useEffect(() => {
     axios
       .get("https://fakestoreapi.com/products")
       .then((response) => {
         setProducts(response.data);
-        setFilteredProducts(response.data);
+        setFilteredProducts(response.data); // Initialize with all products
+        setSortedProducts(response.data); // Initialize with all products
       })
       .catch((err) => setError(err.message));
   }, []);
 
-  // Handle sorting
+  // Apply sorting based on the selected sort option
   useEffect(() => {
     const sortProducts = () => {
-      let sortedProducts = [...filteredProducts];
+      let sorted = [...filteredProducts]; // Copy of the filtered products
 
       switch (sortOption) {
         case "recommended":
-          sortedProducts = [...products];
+          // Recommended logic can be custom or default sorting.
+          sorted = [...filteredProducts]; // Reset to filtered state
           break;
         case "newest":
-          sortedProducts.sort((a, b) => b.id - a.id);
+          sorted.sort((a, b) => b.id - a.id); // Assuming 'id' relates to the newest items.
           break;
         case "popular":
-          sortedProducts.sort((a, b) => a.rating.count - b.rating.count);
+          // As the API doesn't provide popularity, we'll simulate this by random sort.
+          sorted.sort((a, b) => b.rating.count - a.rating.count);
           break;
         case "highToLow":
-          sortedProducts.sort((a, b) => b.price - a.price);
+          sorted.sort((a, b) => b.price - a.price);
           break;
         case "lowToHigh":
-          sortedProducts.sort((a, b) => a.price - b.price);
+          sorted.sort((a, b) => a.price - b.price);
           break;
         default:
           break;
       }
 
-      setFilteredProducts(sortedProducts);
+      setSortedProducts(sorted); // Set the sorted products
     };
 
     sortProducts();
-  }, [sortOption, filteredProducts, products]);
+  }, [sortOption, filteredProducts]); // Trigger sorting whenever the filter or sort option changes
 
+  // Toggle filter modal visibility
   const toggleFilterModal = () => {
     setFilterOpen(!isFilterOpen);
   };
 
+  // Apply filters based on selected categories and price range
   const applyFilters = (categories, priceRange) => {
     const filtered = products.filter(
       (product) =>
@@ -64,14 +71,15 @@ const ProductCard = () => {
         product.price >= priceRange[0] &&
         product.price <= priceRange[1]
     );
-    setFilteredProducts(filtered);
+
+    setFilteredProducts(filtered); // Set filtered products
   };
 
   return (
     <div className={styles.container}>
       <header className={styles.productHeader}>
         <div className={styles.both}>
-          <h2 className={styles.title}>{filteredProducts.length} ITEMS</h2>
+          <h2 className={styles.title}>{sortedProducts.length} ITEMS</h2> {/* Display the count of sorted products */}
           <h2 className={styles.filtertext} onClick={toggleFilterModal}>
             Show Filters
           </h2>
@@ -90,7 +98,7 @@ const ProductCard = () => {
       </header>
       <div className={styles.productGrid}>
         {error && <div className={styles.error}>{error}</div>}
-        {filteredProducts.map((product) => (
+        {sortedProducts.map((product) => ( // Render sorted products
           <div key={product.id} className={styles.card}>
             <img
               src={product.image}
